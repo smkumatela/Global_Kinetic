@@ -1,0 +1,128 @@
+*** Settings ***
+Library           BuiltIn
+Library           SeleniumLibrary
+Library           AutoItLibrary
+Library           Screenshot
+Library           Collections
+Library           DatabaseLibrary
+Library           DateTime
+Library           String
+Library           RequestsLibrary
+Library           OperatingSystem
+Library           JSONLibrary
+Library           HttpLibrary.HTTP
+Library           SudsLibrary
+Library           SSHLibrary
+Library           CSVLibrary
+Library           XML
+Library           ExcelLibrary
+Library           ImapLibrary
+Library           JenkinsLibrary
+
+*** Variables ***
+${excel_path}     C:\\Users\\smkumatela\\Documents\\UserListTableData.csv
+
+*** Test Cases ***
+Web
+    Open Browser    http://www.way2automation.com/angularjs-protractor/webtables/    googlechrome
+    ${currentURL}=    Get Location
+    Should Be Equal As Strings    ${currentURL}    http://www.way2automation.com/angularjs-protractor/webtables/
+    Maximize Browser Window
+    Click Button    Add User
+    Input Text    xpath://input[@name='FirstName']    FName1
+    Input Text    name = LastName    LName1
+    Input Text    name \ = UserName    User1
+    Input Password    name = Password    Pass1
+    Click Element    name = optionsRadios
+    Select From List    name = RoleId    Admin
+    Input Text    name = Email    admin@mail.com
+    Input Text    name = Mobilephone    082555
+    ${userName}=    Get Text    xpath = /html/body/div[3]/div[2]/form/table/tbody/tr[1]/td[2]/input
+    Log    ${userName}
+    Click Button    Save
+    Sleep    5
+    Click Button    Add User
+    Sleep    2
+    Clear Element Text    xpath://input[@name='FirstName']
+    Clear Element Text    name = LastName
+    Clear Element Text    name \ = UserName
+    Clear Element Text    name = Password
+    Clear Element Text    name = Email
+    Clear Element Text    name = Mobilephone
+    Sleep    2
+    Input Text    xpath://input[@name='FirstName']    FName2
+    Input Text    name = LastName    LName2
+    Input Text    name \ = UserName    User2
+    Input Password    name = Password    Pass2
+    Click Element    xpath = /html/body/div[3]/div[2]/form/table/tbody/tr[5]/td[2]/label[2]
+    Select From List    name = RoleId    Customer
+    Input Text    name = Email    customer@mail.com
+    Input Text    name = Mobilephone    083444
+    Click Button    Save
+    sleep    2
+    Close Browser
+
+Check API
+    Create Session    dogs    https://dog.ceo/api    verify=True
+    ${resp}=    Get Request    dogs    /breeds/list/all
+    Log    ${resp.content}
+    Create File    C:\\Python27\\Absa\\AllBreeds.xlsx    ${resp.content}
+    Should Contain    ${resp.content}    retriever    retriever is within the list
+    ${breedCount}=    Get Count    ${resp.content}    retriever
+    Log Many    Retriever found =    ${breedCount}
+    ${subBreed}=    Get Request    dogs    /breed/retriever/list
+    Log    ${subBreed.content}
+    Comment    Create File    C:\\Python27\\Absa\\RetrieverCount    ${breedCount.content}
+    ${randomImage}=    Get Request    dogs    /breed/retriever/golden/images/random
+    Log    ${randomImage.content}
+    ${currentDateTime}=    Get Current Date    result_format=%Y/%m/%d/%H.%M.%S
+    Set Variable    ${currentDateTime}
+    Comment    ${file}=    -d --outputdir dir    C:\\Users\\smkumatela\\Documents\\TestReportsAndLogs    songezo, mkumatela, 1
+    Create File    C:\\Python27\\Absa\\SubBreeds.txt    ${subBreed.content}
+
+Web Forms
+    Open Browser    http://automationpractice.com/index.php    googlechrome
+    ${currentURL}=    Get Location
+    Should Be Equal As Strings    ${currentURL}    http://automationpractice.com/index.php
+    Maximize Browser Window
+    Click Element    //*[@id="block_top_menu"]/ul/li[1]/a
+    Sleep    2
+    # Navigate to Item
+    Focus    //*[@id="center_column"]/ul/li[7]/div/div[1]/div/a[1]/img
+    Click Element    //*[@id="center_column"]/ul/li[7]/div/div[1]/div/a[1]/img
+    Sleep    2
+    # Close sub window
+    Click Element    //*[@id="category"]/div[2]/div/div/a
+    Sleep    2
+    # Click Tops
+    Focus    //*[@id="categories_block_left"]/div/ul/li[1]/a
+    Click Element    //*[@id="categories_block_left"]/div/ul/li[1]/a
+    Sleep    2
+    # Click T-Shirts
+    Focus    //*[@id="categories_block_left"]/div/ul/li[1]/a
+    Click Element    //*[@id="categories_block_left"]/div/ul/li[1]/a
+    Sleep    3
+    Comment    # View Item
+    Comment    Focus    //*[@id="center_column"]/ul/li/div/div[1]/div/a[2]
+    Comment    Click Element    //*[@id="center_column"]/ul/li/div/div[1]/div/a[2]
+    Comment    sleep    3
+    Comment    # View Item Further
+    Comment    Focus    //*[@id="thumb_4"]
+    Comment    Click Element    //*[@id="thumb_4"]
+    Comment    sleep    3
+    Comment    # Close sub window
+    Comment    Click Element    //*[@id="product"]/div[2]/div/div/a
+    Comment    sleep    2
+    # Go to Home page
+    Focus    //*[@id="header_logo"]/a/img
+    Click element    //*[@id="header_logo"]/a/img
+    Sleep    3
+    Focus    //*[@id="homepage-slider"]/div/div[2]/div/a[2]
+    Click Element    //*[@id="homepage-slider"]/div/div[2]/div/a[2]
+    Sleep    3
+    Click Element    //*[@id="homepage-slider"]/div/div[2]/div/a[2]
+    Sleep    3
+    Click Element    //*[@id="homepage-slider"]/div/div[2]/div/a[2]
+    Sleep    3
+    Click Element    //*[@id="home-page-tabs"]/li[2]/a
+    Close Browser    //*[@id="home-page-tabs"]/li[1]/a
