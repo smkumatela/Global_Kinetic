@@ -6,7 +6,7 @@ This is a Selenium Webdriver project that is written using Robot Framework tool 
 The repository has all the code for both tasks, and the code will need to be imported into Robot Framework (Ride) IDE in order to be able to be run
 
 
-IDE Installation Instructions
+IDE Installation Instructions::
 
     • Download Robot Framework and save to a location on your machine
     
@@ -19,7 +19,7 @@ IDE Installation Instructions
 
 
 
-Test Case - Check API:
+Test Case - Check API::
 
     • API request to produce a list of all dog breeds
 
@@ -35,7 +35,7 @@ through the output that gets to be saved in a selected directory.
 
 
 
-Test Case - Web 
+Test Case - Web ::
 
     • It navigates to the Users table through a link
 
@@ -53,6 +53,6 @@ through the output that gets to be saved in a selected directory.
     
 
 
-Test Case - Web Forms
+Test Case - Web Forms::
 
     • This test case entails website navigation throughout the website
