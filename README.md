@@ -35,7 +35,7 @@ through the output that gets to be saved in a selected directory.
 
 
 
-Test Case - Web ::
+Test Case - Web::
 
     • It navigates to the Users table through a link
 
